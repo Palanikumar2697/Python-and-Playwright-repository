@@ -1,3 +1,4 @@
+from playwright.sync_api import expect
 class Navigation:
 
     def __init__(self, page):
@@ -10,6 +11,9 @@ class Navigation:
         self.merken = page.get_by_role("link", name="Merken", exact=True)
         self.inspiratie = page.get_by_role("link", name="Inspiratie", exact=True)
         self.Opruiming = page.get_by_role("link", name="Opruiming", exact=True)
+        self.navbar = page.locator("nav")
+        self.Acties = self.navbar.get_by_role("link", name="Acties")
+        self.Search=page.locator('(//input[@class="aa-Input"])[2]')
 
 
     def hover_all_main_menus(self):
@@ -67,25 +71,50 @@ class Navigation:
         item.hover()
 
         self.page.wait_for_timeout(800)
+
     def Opruiming_menu_click(self):
 
-    # Click Opruiming menu
+    # Click Opruiming
      self.Opruiming.click()
 
-    # Add Steiner Wildlife 8x42 to cart
+# Add product
      product = self.page.locator(
-        "a.product-card-outer-container",
-        has_text="Steiner Wildlife 8x42"
-    )
-
+    "a.product-card-outer-container",
+    has_text="Steiner Wildlife 8x42"
+)
      product.locator("div.cta-container button").click()
 
-    # Click visible "Bestellen" button inside cart drawer
+     product = self.page.locator(
+    "a.product-card-outer-container",
+    has_text="Panasonic Lumix S 20-60mm F/3.5-5.6 L-mount"
+)
+     product.locator("div.cta-container button").click() 
+
+# Go to cart
      self.page.get_by_role("button", name="Bestellen").click()
+     # Open dropdown
+     self.page.locator("div.option-item.selected").click()
 
-     self.page.get_by_role("button", name=" Doorgaan met bestellen").first.click()
+# Select value 2
+     self.page.locator("div.option-item >> span.item-text", has_text="2").click()
 
-     self.page.locator("button[data-dd-action-name='order-and-pay']").click()
+    #  self.page.get_by_role("button", name="Doorgaan met bestellen").first.click()
+     self.page.wait_for_timeout(3000)
+
+
+
+
+
+    def Acties_menu_click(self):
+       self.Acties.click()
+    
+    def Search_Products(self):
+       self.Search.fill('Camera')
+       self.page.wait_for_timeout(1000)
+       
+ 
+
+     
 
       
            

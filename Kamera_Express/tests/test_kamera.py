@@ -20,6 +20,8 @@ def test_navigation(page):
     # nav.hover_marken_and_side_menu()
     # nav.hover_inspiratie_and_side_menu()
     nav.Opruiming_menu_click()
+    # nav.Acties_menu_click()
+    # nav.Search_Products()
     
    
 
